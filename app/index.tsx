@@ -6,9 +6,14 @@ import {useEffect} from "react";
 import {router} from "expo-router";
 import GLOBAL_NAMES from "@/constants/Names";
 import {useFadeInFadeOutAnimStore} from "@/stores/animations/fade-in-fade-out.anim.store";
+import {useTranslation} from 'react-i18next';
+import '../services/i18next';
+import useLanguageStore from "@/stores/change-language.store";
 
 export default function WelcomeScreen() {
+    const {t} = useTranslation();
     const {fadeAnim, startAnim} = useFadeInFadeOutAnimStore();
+    const {openCloseLangList} = useLanguageStore();
 
     useEffect(() => {
         startAnim();
@@ -19,23 +24,28 @@ export default function WelcomeScreen() {
     })
 
     const enterApp = () => {
+        openCloseLangList();
         router.replace('/search');
     }
 
-    return !fontsLoaded ? (
-        <View style={styles.pageContainer}>
-            <Text>Font is loading...</Text>
-            <ActivityIndicator size="small"/>
-        </View>
-    ) : (
-        <Pressable onPress={() => enterApp()} style={styles.pageContainer}>
+    if (!fontsLoaded) {
+        return (
+            <View style={styles.pageContainer}>
+                <Text>Font is loading...</Text>
+                <ActivityIndicator size="small"/>
+            </View>
+        );
+    }
+
+    return (
+        <Pressable onPress={enterApp} style={styles.pageContainer}>
             <View style={styles.topLevelContent}>
-                <Text style={styles.title}>Welcome to</Text>
+                <Text style={styles.title}>{t('WelcomeScreen.welcomeTo')}</Text>
                 <Image source={require('@/assets/gif/rotating-earth.gif')} style={styles.image}
                        resizeMode={'contain'}/>
                 <Text style={styles.title}>{GLOBAL_NAMES.APP_TITLE}!</Text>
                 <Animated.Text style={[styles.subTitle, {opacity: fadeAnim}]}>
-                    (Touch anywhere to enter)
+                    {t('WelcomeScreen.touchAnywhereToContinue')}
                 </Animated.Text>
             </View>
         </Pressable>
