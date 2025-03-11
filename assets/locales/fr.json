@@ -1,6 +1,25 @@
 {
+  "Profile": {
+    "contact": "Contact :",
+    "ccLevel": "Niveau du CC",
+    "noLogin": "Cet utilisateur n'a pas de login",
+    "notAvailable": "N/A",
+    "projectList": {
+      "title": "Projets :"
+    },
+    "skillList": {
+      "title": "Compétences :"
+    },
+    "validatedProjects": "Projets validés",
+    "wallets": "Wallets"
+  },
+  "SearchScreen": {
+    "incorrectLogin": "Login incorrect",
+    "placeholder": "Rechercher un profil",
+    "networkError": "Aucun réseau détecté"
+  },
   "WelcomeScreen": {
-    "welcomeTo": "Bienvenue dans",
-    "touchAnywhereToContinue": "Toucher l'écran pour continuer"
+    "touchAnywhereToContinue": "Toucher l'écran pour continuer",
+    "welcomeTo": "Bienvenue dans"
   }
 }

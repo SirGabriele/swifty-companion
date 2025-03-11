@@ -13,7 +13,7 @@ import useLanguageStore from "@/stores/change-language.store";
 export default function WelcomeScreen() {
     const {t} = useTranslation();
     const {fadeAnim, startAnim} = useFadeInFadeOutAnimStore();
-    const {openCloseLangList} = useLanguageStore();
+    const {isLangListShown, openCloseLangList} = useLanguageStore();
 
     useEffect(() => {
         startAnim();
@@ -24,7 +24,9 @@ export default function WelcomeScreen() {
     })
 
     const enterApp = () => {
-        openCloseLangList();
+        if (isLangListShown) {
+            openCloseLangList();
+        }
         router.replace('/search');
     }
 
@@ -42,7 +44,7 @@ export default function WelcomeScreen() {
             <View style={styles.topLevelContent}>
                 <Text style={styles.title}>{t('WelcomeScreen.welcomeTo')}</Text>
                 <Image source={require('@/assets/gif/rotating-earth.gif')} style={styles.image}
-                       resizeMode={'contain'}/>
+                       resizeMode='contain'/>
                 <Text style={styles.title}>{GLOBAL_NAMES.APP_TITLE}!</Text>
                 <Animated.Text style={[styles.subTitle, {opacity: fadeAnim}]}>
                     {t('WelcomeScreen.touchAnywhereToContinue')}

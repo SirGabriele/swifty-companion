@@ -1,6 +1,25 @@
 {
+  "Profile": {
+    "contact": "Contact :",
+    "ccLevel": "CC level",
+    "noLogin": "This user has no login",
+    "notAvailable": "N/A",
+    "projectList": {
+      "title": "Projects :"
+    },
+    "skillList": {
+      "title": "Skills :"
+    },
+    "validatedProjects": "Validated projects",
+    "wallets": "Wallets"
+  },
+  "SearchScreen": {
+    "incorrectLogin": "Incorrect login",
+    "placeholder": "Search a profile",
+    "networkError": "No network detected"
+  },
   "WelcomeScreen": {
-    "welcomeTo": "Welcome to",
-    "touchAnywhereToContinue": "Touch the screen to continue"
+    "touchAnywhereToContinue": "Touch the screen to continue",
+    "welcomeTo": "Welcome to"
   }
 }

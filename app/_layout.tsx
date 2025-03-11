@@ -11,6 +11,7 @@ export default function RootLayout() {
             <Stack screenOptions={{headerShown: false}}>
                 <Stack.Screen name="index"/>
                 <Stack.Screen name="search"/>
+                <Stack.Screen name="profile"/>
             </Stack>
         </View>
     );
@@ -24,6 +25,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 0,
         right: 0,
-        zIndex: 10,
+        zIndex: 2,
     },
 });

@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {HandledLanguages} from "@/constants/types/HandledLanguages.type";
+import {handledLanguages} from "@/types/handledLanguages.type";
 import {ImageRequireSource} from "react-native/Libraries/Image/ImageSource";
 import {Dimensions} from "react-native";
 import GLOBAL_VALUES from "@/constants/Values";
@@ -9,7 +9,7 @@ type LanguageStore = {
     isLangListShown: boolean,
     openCloseLangList: () => void,
     selectedLanguage: string,
-    changeLanguage: (lang: HandledLanguages) => void,
+    changeLanguage: (lang: handledLanguages) => void,
     flagsImgSrc: LangRequireSource,
 }
 
@@ -68,7 +68,7 @@ const useLanguageStore = create<LanguageStore>((set, get) => ({
     selectedLanguage: i18next.language,
     changeLanguage: (lang) => {
         i18next.changeLanguage(lang).then(() => {
-            set({isLangListShown: false, selectedLanguage: lang,});
+            set({isLangListShown: false, selectedLanguage: lang});
         });
     },
     flagsImgSrc: getCorrectSource(),
