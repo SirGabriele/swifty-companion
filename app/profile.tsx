@@ -1,14 +1,16 @@
 import {ActivityIndicator, Dimensions, Image, ImageBackground, Pressable, ScrollView, Text, View} from 'react-native';
 import {ScaledSheet} from "react-native-size-matters";
 import {Ionicons} from "@expo/vector-icons";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import useFetchStore from "@/stores/fetch.store";
 import {useTranslation} from "react-i18next";
 import {router} from "expo-router";
-import DisplayValue from "@/shared/components/displayValue.component";
-import {ProjectInfo, SkillInfo, User} from "@/types/user.interface";
-import ProjectList from "@/shared/components/projectList.component";
-import SkillList from "@/shared/components/skillList.component";
+import DisplayValue from "@/shared/components/display-value.component";
+import ProjectList from "@/shared/components/project-list.component";
+import SkillList from "@/shared/components/skill-list.component";
+import {User} from "@/constants/interfaces/user.interface";
+import {ProjectInfo} from "@/constants/interfaces/project-info.interface";
+import {SkillInfo} from "@/constants/interfaces/skill-info.interface";
 
 export default function Profile() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -74,8 +76,8 @@ export default function Profile() {
         }))
     }
 
-    const getUserSkills = (user: User): SkillInfo[] => {
-        return user.cursus_users.find(cursus => cursus.cursus_id === cursusId)!.skills;
+    const getUserSkills = (user: User): SkillInfo[] | null => {
+        return user.cursus_users.find(cursus => cursus.cursus_id === cursusId)?.skills ?? null;
     }
 
     const profilePicture = () => {
@@ -108,8 +110,7 @@ export default function Profile() {
                 </View>
                 <View>
                     <Text style={styles.textWhite}>{t("Profile.contact")}</Text>
-                    {contactRow("call-outline", getUserStringInfo(user?.phone))}
-                    {contactRow("location-outline", getUserStringInfo(user?.campus[0].name))}
+                    {contactRow("location-outline", getUserStringInfo(user?.campus[user?.campus.length - 1].name))}
                     {contactRow("mail-outline", getUserStringInfo(user?.email))}
                 </View>
             </View>
@@ -165,7 +166,7 @@ export default function Profile() {
 }
 
 const {width, height} = Dimensions.get("window");
-const profilePictureLength = width < height ? width / 2.5 : height / 2.5
+const profilePictureLength = Math.min(width, height) / 2.5;
 const styles = ScaledSheet.create({
     aboutContainer: {
         flexDirection: 'row',
@@ -209,8 +210,7 @@ const styles = ScaledSheet.create({
         alignItems: 'center'
     },
     pageContainer: {
-        height: '100%',
-        width: '100%'
+        flex: 1
     },
     profileContent: {
         flexDirection: 'column',
@@ -228,12 +228,18 @@ const styles = ScaledSheet.create({
         marginBottom: '20@s'
     },
     projectList: {
-        // height: '200@s'
-        height: height / 4,
-        marginBottom: '20@s'
+        maxHeight: height / 4,
+        marginBottom: '20@s',
+        marginLeft: '5@s',
+        marginRight: '5@s',
+        borderWidth: 1
     },
     skillList: {
-        height: height / 4
+        maxHeight: height / 4,
+        marginBottom: '20@s',
+        marginLeft: '5@s',
+        marginRight: '5@s',
+        borderWidth: 1
     },
     scrollableContent: {
         flex: 1,

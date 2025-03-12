@@ -1,6 +1,6 @@
 import {ImageBackground, Keyboard, Text, TextInput, TouchableWithoutFeedback, View} from 'react-native';
 import {ScaledSheet} from "react-native-size-matters";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Ionicons} from "@expo/vector-icons";
 import {useTranslation} from "react-i18next";
 import useFetchStore from "@/stores/fetch.store";
@@ -32,7 +32,7 @@ export default function Search() {
             return;
         }
 
-        if (await searchUser(loginInput) !== 200) {
+        if (await searchUser(loginInput.trim().toLowerCase()) !== 200) {
             setError(true);
             return;
         }

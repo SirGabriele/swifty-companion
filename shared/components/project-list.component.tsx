@@ -1,9 +1,8 @@
 import {ScrollView, Text, View} from 'react-native';
-import {ProjectInfo} from "@/types/user.interface";
 import {ScaledSheet} from "react-native-size-matters";
-import React from "react";
 import {Ionicons} from "@expo/vector-icons";
 import {useTranslation} from "react-i18next";
+import {ProjectInfo} from "@/constants/interfaces/project-info.interface";
 
 type ProjectListProps = {
     projectList: ProjectInfo[];
@@ -16,9 +15,9 @@ export default function ProjectList({projectList}: ProjectListProps) {
         <ScrollView nestedScrollEnabled>
             <View style={styles.container}>
                 <Text style={styles.title}>{t('Profile.projectList.title')}</Text>
-                {projectList.map(project => {
+                {projectList.map((project, index) => {
                     return (
-                        <View key={project.id} style={styles.borderBottom}>
+                        <View key={project.id} style={[index !== projectList.length - 1 && styles.borderBottom]}>
                             <View style={styles.projectRow}>
                                 <Text>{project.name}</Text>
                                 <View style={styles.gradeContainer}>
@@ -44,8 +43,8 @@ const styles = ScaledSheet.create({
         borderBottomWidth: 1
     },
     container: {
-        marginLeft: '5@s',
-        marginRight: '5@s'
+        paddingLeft: '5@s',
+        paddingRight: '5@s'
     },
     icons: {
         fontSize: '15@s',
@@ -55,14 +54,13 @@ const styles = ScaledSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        width: '30@s',
+        width: '40@s'
     },
     projectRow: {
-        flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
-        height: '20@s'
+        height: '15@s'
     },
     textGreen: {
         color: 'green',
@@ -74,6 +72,7 @@ const styles = ScaledSheet.create({
         color: 'red',
     },
     title: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textDecorationLine: 'underline'
     }
 })

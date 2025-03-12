@@ -1,6 +1,6 @@
 import {create} from "zustand";
-import {AccessTokenInfo} from "@/types/accessToken.interface";
-import {User} from "@/types/user.interface";
+import {AccessTokenInfo} from "@/constants/interfaces/access-token.interface";
+import {User} from "@/constants/interfaces/user.interface";
 
 const SUCCESS = true;
 const FAILURE = false;
@@ -98,23 +98,24 @@ const useFetchStore = create<FetchStore>((set, get) => {
                     return FAILURE;
                 }
             } catch (err) {
-                console.debug('debug')
                 console.debug("Unable to fetch token:", err);
                 return FAILURE;
             }
         },
         searchUser: async (login: string) => {
-            console.debug('searching user', login);
+            if (login.length === 0) {
+                return FAILURE;
+            }
             if (!isEnvLoaded) {
                 console.debug('Environment variables not loaded');
                 return FAILURE;
             }
 
             if (!get().accessToken) {
-                const res = await get().fetchAccessToken();
-                if (res !== SUCCESS) {
-                    return FAILURE;
-                }
+                // const res = await get().fetchAccessToken();
+                // if (res !== SUCCESS) {
+                //     return FAILURE;
+                // }
             }
 
             set({user: null});
@@ -136,7 +137,6 @@ const useFetchStore = create<FetchStore>((set, get) => {
                     return res.status;
                 } else {
                     if(res.status === 401) {
-                        console.log('force refetch token')
                         await get().fetchAccessToken();
                         return await get().searchUser(login);
                     }
@@ -147,56 +147,7 @@ const useFetchStore = create<FetchStore>((set, get) => {
                 console.debug(`Error while fetching data from /v2/users/${login}:`, err);
                 return FAILURE;
             }
-        },
-        // fetchCoalition: async () => {
-        //     if (!isEnvLoaded) {
-        //         console.debug('Environment variables not loaded');
-        //         return FAILURE;
-        //     }
-        //
-        //     if (!isAccessTokenValid(get().accessToken)) {
-        //         const res = await get().fetchAccessToken();
-        //         if (res !== SUCCESS) {
-        //             return FAILURE;
-        //         }
-        //     }
-        //
-        //     if (!get().user?.id) {
-        //         return FAILURE;
-        //     }
-        //
-        //     set({coalition: null});
-        //
-        //     try {
-        //         const init = {
-        //             method: "GET",
-        //             headers: {
-        //                 "Authorization": `Bearer ${get().accessToken?.access_token}`,
-        //             },
-        //         };
-        //
-        //         const resOne = await fetchApi(`https://api.intra.42.fr/v2/users/${get().user?.id}/coalitions_users`, init);
-        //         if (!resOne.ok) {
-        //             handleResponseErrorStatus(`While trying to fetch user's list of coalitions`, resOne.status);
-        //             return FAILURE;
-        //         }
-        //
-        //         const dataOne: UserCoalition[] = await resOne.json();
-        //
-        //         const resTwo = await fetchApi(`https://api.intra.42.fr/v2/coalitions/${dataOne[0].coalition_id}`, init);
-        //         if (!resTwo.ok) {
-        //             handleResponseErrorStatus(`While trying to fetch coalition's data`, resTwo.status);
-        //             return FAILURE;
-        //         }
-        //
-        //         set({coalition: await resTwo.json()});
-        //         console.log(get().coalition)
-        //         return SUCCESS;
-        //     } catch (err) {
-        //         console.debug(`Error while fetching coalition related data:`, err);
-        //         return FAILURE;
-        //     }
-        // }
+        }
     }
 })
 

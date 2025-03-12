@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {handledLanguages} from "@/types/handledLanguages.type";
+import {handledLanguages} from "@/constants/types/handled-languages.type";
 import {ImageRequireSource} from "react-native/Libraries/Image/ImageSource";
 import {Dimensions} from "react-native";
 import GLOBAL_VALUES from "@/constants/Values";
@@ -28,7 +28,7 @@ export type LangRequireSource = {
  */
 function getCorrectSource(): LangRequireSource {
     const {width, height} = Dimensions.get('window');
-    const shortestLength = Math.min(width, height)
+    const shortestLength = Math.min(width, height);
     const targetValue = shortestLength * GLOBAL_VALUES.FLAG_ICON_SIZE_TO_SCREEN_RATIO;
     const resolutionToUse = GLOBAL_VALUES.IMG_RESOLUTIONS.reduce((prev, curr) =>
         Math.abs(curr - targetValue) < Math.abs(prev - targetValue) ? curr : prev

@@ -1,7 +1,6 @@
 import {Image, Pressable, View} from 'react-native';
-import React from "react";
-import {handledLanguages} from "@/types/handledLanguages.type";
-import {handledLanguagesList} from "@/types/handledLanguages.type";
+import {handledLanguages} from "@/constants/types/handled-languages.type";
+import {handledLanguagesList} from "@/constants/types/handled-languages.type";
 import useLanguageStore, {LangRequireSource} from "@/stores/change-language.store";
 
 export default function ChangeLanguageButton() {
