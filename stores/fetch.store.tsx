@@ -136,7 +136,7 @@ const useFetchStore = create<FetchStore>((set, get) => {
                     console.debug(`Successfully fetched the user '${login}'`);
                     return res.status;
                 } else {
-                    if(res.status === 401) {
+                    if (res.status === 401) {
                         await get().fetchAccessToken();
                         return await get().searchUser(login);
                     }

@@ -81,7 +81,7 @@ export default function Profile() {
     }
 
     const profilePicture = () => {
-        const profilePictureUri = user?.image.versions.medium || null;
+        const profilePictureUri = user?.image?.versions?.medium || null;
 
         return (
             <View>
@@ -110,7 +110,7 @@ export default function Profile() {
                 </View>
                 <View>
                     <Text style={styles.textWhite}>{t("Profile.contact")}</Text>
-                    {contactRow("location-outline", getUserStringInfo(user?.campus[user?.campus.length - 1].name))}
+                    {contactRow("location-outline", getUserStringInfo(user?.campus[user?.campus?.length - 1].name))}
                     {contactRow("mail-outline", getUserStringInfo(user?.email))}
                 </View>
             </View>

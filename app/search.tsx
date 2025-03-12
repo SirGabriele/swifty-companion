@@ -27,8 +27,17 @@ export default function Search() {
         }
     }
 
+    const isOnlyLetters = (loginInput: string): boolean => {
+        return /^[ A-Za-z0-9_-]+$/.test(loginInput);
+    }
+
     const submit = async () => {
         if (!loginInput) {
+            return;
+        }
+
+        if (!isOnlyLetters(loginInput)) {
+            setError(true);
             return;
         }
 
@@ -50,7 +59,7 @@ export default function Search() {
                             style={styles.textInput}
                             placeholder={t("SearchScreen.placeholder")}
                             inputMode='text'
-                            maxLength={20}
+                            maxLength={30}
                             value={loginInput}
                             onChangeText={val => {
                                 setLoginInput(val);
