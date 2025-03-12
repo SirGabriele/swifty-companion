@@ -112,10 +112,10 @@ const useFetchStore = create<FetchStore>((set, get) => {
             }
 
             if (!get().accessToken) {
-                // const res = await get().fetchAccessToken();
-                // if (res !== SUCCESS) {
-                //     return FAILURE;
-                // }
+                const res = await get().fetchAccessToken();
+                if (res !== SUCCESS) {
+                    return FAILURE;
+                }
             }
 
             set({user: null});
