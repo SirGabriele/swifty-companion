@@ -59,8 +59,7 @@ const styles = ScaledSheet.create({
     projectRow: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        alignItems: 'center',
-        height: '15@s'
+        alignItems: 'center'
     },
     textGreen: {
         color: 'green',
